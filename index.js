@@ -25,13 +25,12 @@ app.get('/', function(req, res){
 
 io.on('connection', function (socket) {
 
+    console.log(http);
     var socketId = socket.id;
 
     users.push({ 'id': socketId, 'name': "User" + nextUserId });
 
     nextUserId++;
-
-
 
     console.log(users[users.length - 1].name + ' joined with id ' + users[users.length - 1].id);
 
