@@ -24,4 +24,4 @@ net.createServer(function(sock) {
 
 }).listen(PORT);
 
-console.log('Server listening on ' + HOST +':'+ PORT + " " + location.href);
+console.log('Server listening on ' + HOST +':'+ PORT);
