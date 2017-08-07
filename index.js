@@ -1,39 +1,12 @@
-/*
---------------------------------
-USAGE
-Start Server, navigate to code directory in Terminal: 
-> node tcp_echo.js
-In another new Terminal window, connect to TCP Echo server
-> telnet localhost 5000
-Enter a message in the connected Terminal window and hit return key.
-*/
-var net = require('net');
+const server = express()
+  .use((req, res) => res.sendFile(INDEX) )
+  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
+
 var port = (process.env.PORT || 5000);
-net.createServer(function(socket) {
-    
-    // New client connection event
-    socket.on('connect', function(data){
-      // server log new connection
-    	console.log("Connection from " + socket.remoteAddress);
 
-    	// Say hello when new socket connects
-    	socket.write("Welcome to our humble echo server\n");
-    });
-
-
-    // Incoming data event
-    socket.on('data', function(data) {
-    	console.log("Client said: " + data); // server log
-        socket.write("You said: " + data); // write to client
-    });
-
-
-    // Disconnect event
-    socket.on('end', function(){
-    	//Log it to the server output
-    	console.log("someone left us.")
-   	});
-    
-}).listen(port);
-
-console.log("TCP ECHO SERVER STARTED ON " + port);
+const io = socketIO(server);
+io.on('connection', (socket) => {
+  console.log('Client connected');
+  socket.on('disconnect', () => console.log('Client disconnected'));
+});
+setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
