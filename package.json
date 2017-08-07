@@ -1,6 +1,6 @@
 {
   "name": "websockets-socket.io",
-  "version": "0.0.1",
+  "version": "0.1.1",
   "description": "",
   "dependencies": {
     "express": "4.13.4",
@@ -8,6 +8,6 @@
   },
 
   "engines": {
-    "node": "6.2.2"
+    "node": "8.2.1"
   }
 }
