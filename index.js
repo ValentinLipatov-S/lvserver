@@ -1,16 +1,12 @@
+var i = 0;
 var net = require('net');
- 
+var svrport = (process.env.PORT || 5000);
 var svr = net.createServer(function(sock) {
-    console.log('CONNECT');
+    console.log('CONNECT ' + i++);
     sock.on('data', function(data) { console.log('MESSAGE'); sock.write(data);
     });
- 
     sock.on('end', function() { console.log('DISCONNECT');
     });
-});
+}).listen(svrport);
  
-var svraddr = '127.0.0.1';
-var svrport = (process.env.PORT || 5000);
- 
-svr.listen(svrport);
-console.log('Server Created at ' + svraddr + ':' + svrport + '\n');
+console.log('Server Created at ' + svrport);
