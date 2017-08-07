@@ -2,7 +2,7 @@ var net = require('net');
 var server = net.createServer();
 
 server.listen(9000, function() {  
-  console.log('server listening to %j', server.address());
+  console.log('Server listening to %j', server.address());
 });
 
  sock.on('connection', function(sock) {
