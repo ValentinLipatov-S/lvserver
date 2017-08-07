@@ -1,27 +1,43 @@
+var sys = require('sys');
 var net = require('net');
-
-var HOST = 'lvserver.herokuapp.com';
-var PORT = (process.env.PORT || 5000);
-
-// Create a server instance, and chain the listen function to it
-// The function passed to net.createServer() becomes the event handler for the 'connection' event
-// The sock object the callback function receives UNIQUE for each connection
-net.createServer(function(sock) {
-
-    // We have a connection - a socket object is assigned to the connection automatically
-    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
-    // Add a 'data' event handler to this instance of socket
-    sock.on('data', function(data) {
-        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        // Write the data back to the socket, the client will receive it as data from the server
-        sock.write('You said "' + data + '"');
+var sockets = [];
+ 
+var svr = net.createServer(function(sock) {
+    sys.puts('Connected: ' + sock.remoteAddress + ':' + sock.remotePort); 
+    sock.write('Hello ' + sock.remoteAddress + ':' + sock.remotePort + '\n');
+    sockets.push(sock);
+ 
+    sock.on('data', function(data) {  // client writes message
+        if (data == 'exit\n') {
+            sys.puts('exit command received: ' + sock.remoteAddress + ':' + sock.remotePort + '\n');
+            sock.destroy();
+            var idx = sockets.indexOf(sock);
+            if (idx != -1) {
+                delete sockets[idx];
+            }
+            return;
+        }
+        var len = sockets.length;
+        for (var i = 0; i < len; i ++) { // broad cast
+            if (sockets[i] != sock) {
+                if (sockets[i]) {
+                    sockets[i].write(sock.remoteAddress + ':' + sock.remotePort + ':' + data);
+                }
+            }
+        }
     });
-
-    // Add a 'close' event handler to this instance of socket
-    sock.on('close', function(data) {
-        console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
+ 
+    sock.on('end', function() { // client disconnects
+        sys.puts('Disconnected: ' + data + data.remoteAddress + ':' + data.remotePort + '\n');
+        var idx = sockets.indexOf(sock);
+        if (idx != -1) {
+            delete sockets[idx];
+        }
     });
-
-}).listen(PORT);
-
-console.log('Server listening on ' + HOST +':'+ PORT);
+});
+ 
+var svraddr = '127.0.0.1';
+var svrport = (process.env.PORT || 5000);
+ 
+svr.listen(svrport, svraddr);
+sys.puts('Server Created at ' + svraddr + ':' + svrport + '\n');
