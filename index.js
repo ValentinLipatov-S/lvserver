@@ -1,6 +1,6 @@
 var net = require('net');
 
-var HOST = 'localhost';
+var HOST = 'lvserver.herokuapp.com';
 var PORT = (process.env.PORT || 5000);
 
 // Create a server instance, and chain the listen function to it
