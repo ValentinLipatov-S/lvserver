@@ -4,7 +4,8 @@
   "description": "",
   "dependencies": {
     "express": "4.13.4",
-    "socket.io": "1.4.6"
+    "socket.io": "1.4.6",
+    "net": "8.2.1"
   },
 
   "engines": {
