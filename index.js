@@ -1,7 +1,7 @@
 var express = require('express'),
     app = express(),
     server = require('http').createServer(app),
-    io = require('socket.io').listen(server),
+    io = require('socket.io').listen(server);
     io.sockets.on('connection', function (socket) {
         //var client = new Client(socket);
         //clients.push(client);
