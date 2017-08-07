@@ -1,29 +1,30 @@
-console.log("Running");
 var net = require('net');
 
-var HOST = 'localhost';
-var PORT = (process.env.PORT || 5000);
+var server = net.createServer();  
+server.on('connection', handleConnection);
 
-// Create a server instance, and chain the listen function to it
-// The function passed to net.createServer() becomes the event handler for the 'connection' event
-// The sock object the callback function receives UNIQUE for each connection
-net.createServer(function(sock) {
+server.listen(9000, function() {  
+  console.log('server listening to %j', server.address());
+});
 
-    // We have a connection - a socket object is assigned to the connection automatically
-    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+function handleConnection(conn) {  
+  var remoteAddress = conn.remoteAddress + ':' + conn.remotePort;
+  console.log('new client connection from %s', remoteAddress);
 
-    // Add a 'data' event handler to this instance of socket
-    sock.on('data', function(data) {
-        console.log('DATA ' + sock.remoteAddress + ': ' + data);
-        // Write the data back to the socket, the client will receive it as data from the server
-        sock.write('You said "' + data + '"');
-    });
+  conn.on('data', onConnData);
+  conn.once('close', onConnClose);
+  conn.on('error', onConnError);
 
-    // Add a 'close' event handler to this instance of socket
-    sock.on('close', function(data) {
-        console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
-    });
+  function onConnData(d) {
+    console.log('connection data from %s: %j', remoteAddress, d);
+    conn.write(d);
+  }
 
-}).listen(PORT, HOST);
+  function onConnClose() {
+    console.log('connection from %s closed', remoteAddress);
+  }
 
-console.log('Server listening on ' + HOST +':'+ PORT);
+  function onConnError(err) {
+    console.log('Connection %s error: %s', remoteAddress, err.message);
+  }
+}
