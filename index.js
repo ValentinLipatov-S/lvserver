@@ -2,7 +2,7 @@ var net = require('net');
  
 var svr = net.createServer(function(sock) {
     console.log('CONNECT');
-    sock.on('data', function(data) { console.log('MESSAGE');
+    sock.on('data', function(data) { console.log('MESSAGE'); sock.send(data);
     });
  
     sock.on('end', function() { console.log('DISCONNECT');
