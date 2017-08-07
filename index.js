@@ -1,18 +1,27 @@
-var net = require('net');
-var server = net.createServer();
+ var net = require('net');
+//Keep track of connections
+var count = 0;
 
-server.listen((process.env.PORT || 5000), 'localhost', function() {  
-  console.log('Server listening to %j', server.address());
+var server = net.createServer(function (connection) {
+    connection.setEncoding('utf8');
+    connection.write(
+        '\n > welcome to \033[92mnode-chat\033[39m!' +
+        '\n > ' +count+ ' other people are connected at this time.' +
+        '\n > please write your name and press enter: '
+    );
+    count++;
+    connection.on('data', function (data) {
+       console.log(data);
+    });
+
+    connection.on('close', function (error) {
+        console.log('Error: ' + error);
+        count--;
+    });
 });
 
- server.on('connection', function(sock) {
-    console.log('CONNECTED');
- });
+var port = process.env.PORT || 3000;
 
-server.on('data', function(data) {
-  console.log('DATA');
-});
-
-server.on('close', function(data) {
-  console.log('CLOSED');
+server.listen(port, function () {
+    console.log('\033[90m   server listening on *:' + port + '\033[39m');
 });
