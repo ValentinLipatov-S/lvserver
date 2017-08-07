@@ -1,3 +1,10 @@
+const ifaces = require('os').networkInterfaces();
+const localhost = Object.keys(ifaces).reduce((host,ifname) => {
+    let iface = ifaces[ifname].find(iface => !('IPv4' !== iface.family || iface.internal !== false));
+    return iface? iface.address : host;
+}, '127.0.0.1');
+console.log(localhost);
+
 var i = 0;
 var net = require('net');
 var svrport = (process.env.PORT || 5000);
