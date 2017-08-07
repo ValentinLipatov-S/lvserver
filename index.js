@@ -1,3 +1,4 @@
+console.log("Running");
 var net = require('net');
 
 var HOST = '0.0.0.0';
