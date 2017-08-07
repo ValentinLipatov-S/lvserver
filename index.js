@@ -38,7 +38,7 @@ io.on('connection', function (socket) {
     io.emit('user connected', users[users.length - 1].name);
 
     socket.on('disconnect', function () {
-
+        console.log(app.get('port') + " " + app.get('ip'));
         console.log('user disconnected');
 
     });
