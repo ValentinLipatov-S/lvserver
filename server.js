@@ -1,21 +1,30 @@
-'use strict';
+var PORT = 6969;
+var io = require('socket.io').listen(PORT);
+var clients = [];
+//socket.io
+io.sockets.on('connection', function (socket) {
+    var client = new Client(socket);
+    //clients.push(client);
+    console.log('CONNECTED');
 
-const express = require('express');
-const socketIO = require('socket.io');
-const path = require('path');
+    socket.on('message', function (msg) {
+        console.log('WRITE');
+        //client.onMessage(msg);
+    });
 
-const PORT = process.env.PORT || 3000;
-const INDEX = path.join(__dirname, 'index.html');
+    socket.on('input', function (pos) {
+         console.log('INPUT');
+        //client.onInput(pos);
+    });
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX) )
-  .listen(PORT, () => console.log(`Listening on ${ PORT }`));
-
-const io = socketIO(server);
-
-io.on('connection', (socket) => {
-  console.log('Client connected');
-  socket.on('disconnect', () => console.log('Client disconnected'));
+    socket.on('disconnect', function () {
+        console.log('CLOSED');
+        //var index = clients.indexOf(client);
+        //if (index != -1) {
+        //    clients.splice(index);
+        //}
+        client.onDisconnect();
+    });
 });
 
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+console.log('Server started on port: ' + PORT);
