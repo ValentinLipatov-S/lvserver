@@ -18,7 +18,7 @@ app.get('/', function(req, res){
 
 var net = require('net');
 
-var HOST = '127.0.0.1';
+var HOST = '0.0.0.0';
 var PORT = process.env.PORT;
 
 // Create a server instance, and chain the listen function to it
