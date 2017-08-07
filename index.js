@@ -1,27 +1,28 @@
- var net = require('net');
-//Keep track of connections
-var count = 0;
+var net = require('net');
 
-var server = net.createServer(function (connection) {
-    connection.setEncoding('utf8');
-    connection.write(
-        '\n > welcome to \033[92mnode-chat\033[39m!' +
-        '\n > ' +count+ ' other people are connected at this time.' +
-        '\n > please write your name and press enter: '
-    );
-    count++;
-    connection.on('data', function (data) {
-       console.log(data);
+var HOST = 'localhost';
+var PORT = (process.env.PORT || 5000);
+
+// Create a server instance, and chain the listen function to it
+// The function passed to net.createServer() becomes the event handler for the 'connection' event
+// The sock object the callback function receives UNIQUE for each connection
+net.createServer(function(sock) {
+
+    // We have a connection - a socket object is assigned to the connection automatically
+    console.log('CONNECTED: ' + sock.remoteAddress +':'+ sock.remotePort);
+
+    // Add a 'data' event handler to this instance of socket
+    sock.on('data', function(data) {
+        console.log('DATA ' + sock.remoteAddress + ': ' + data);
+        // Write the data back to the socket, the client will receive it as data from the server
+        sock.write('You said "' + data + '"');
     });
 
-    connection.on('close', function (error) {
-        console.log('Error: ' + error);
-        count--;
+    // Add a 'close' event handler to this instance of socket
+    sock.on('close', function(data) {
+        console.log('CLOSED: ' + sock.remoteAddress +' '+ sock.remotePort);
     });
-});
 
-var port = process.env.PORT || 3000;
+}).listen(PORT, HOST);
 
-server.listen(port, function () {
-    console.log('\033[90m   server listening on *:' + port + '\033[39m');
-});
+console.log('Server listening on ' + HOST +':'+ PORT);
