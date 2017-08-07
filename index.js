@@ -13,11 +13,11 @@ var users = [];
 
 
 app.set('port', (process.env.PORT || 5000));
-res.send(process.env.PORT);
+
 
 
 app.get('/', function(req, res){
-
+    res.send(process.env.PORT);
     res.sendFile(__dirname + '/index.html');
 
 });
