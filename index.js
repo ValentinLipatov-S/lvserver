@@ -13,7 +13,7 @@ var users = [];
 
 
 app.set('port', (process.env.PORT || 5000));
-
+res.send(process.env.PORT);
 
 
 app.get('/', function(req, res){
