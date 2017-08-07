@@ -1,19 +1,39 @@
-const ifaces = require('os').networkInterfaces();
-const localhost = Object.keys(ifaces).reduce((host,ifname) => {
-    let iface = ifaces[ifname].find(iface => !('IPv4' !== iface.family || iface.internal !== false));
-    return iface? iface.address : host;
-}, '127.0.0.1');
-console.log(localhost);
-
-var i = 0;
+/*
+--------------------------------
+USAGE
+Start Server, navigate to code directory in Terminal: 
+> node tcp_echo.js
+In another new Terminal window, connect to TCP Echo server
+> telnet localhost 5000
+Enter a message in the connected Terminal window and hit return key.
+*/
 var net = require('net');
-var svrport = (process.env.PORT || 5000);
-var svr = net.createServer(function(sock) {
-    console.log('CONNECT ' + i++);
-    sock.on('data', function(data) { console.log('MESSAGE'); sock.write(data);
+var port = (process.env.PORT || 5000);
+net.createServer(function(socket) {
+    
+    // New client connection event
+    socket.on('connect', function(data){
+      // server log new connection
+    	console.log("Connection from " + socket.remoteAddress);
+
+    	// Say hello when new socket connects
+    	socket.write("Welcome to our humble echo server\n");
     });
-    sock.on('end', function() { console.log('DISCONNECT');
+
+
+    // Incoming data event
+    socket.on('data', function(data) {
+    	console.log("Client said: " + data); // server log
+        socket.write("You said: " + data); // write to client
     });
-}).listen(svrport);
- 
-console.log('Server Created at ' + svrport);
+
+
+    // Disconnect event
+    socket.on('end', function(){
+    	//Log it to the server output
+    	console.log("someone left us.")
+   	});
+    
+}).listen(port);
+
+console.log("TCP ECHO SERVER STARTED ON " + port);
