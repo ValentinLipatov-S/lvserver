@@ -1,7 +1,7 @@
 console.log("Running");
 var net = require('net');
 
-var HOST = '0.0.0.0';
+var HOST = 'localhost';
 var PORT = 5469;
 
 // Create a server instance, and chain the listen function to it
