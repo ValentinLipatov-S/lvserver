@@ -1,4 +1,4 @@
-var PORT = 6969;
+var PORT = 5000;
 var io = require('socket.io').listen(PORT);
 var clients = [];
 //socket.io
