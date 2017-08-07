@@ -1,21 +1,3 @@
-var app = require('express')();
-
-var http = require('http').Server(app);
-
-var io = require('socket.io')(http);
-
-
-var nextUserId = 0;
-
-var users = [];
-
-app.set('port', (process.env.PORT || 5000));
-
-app.get('/', function(req, res){
-    //res.sendFile(__dirname + '/index.html');
-    res.send("Server is Working");
-});
-
 var net = require('net');
 
 var HOST = '0.0.0.0';
@@ -44,9 +26,3 @@ net.createServer(function(sock) {
 }).listen(PORT, HOST);
 
 console.log('Server listening on ' + HOST +':'+ PORT);
-
-
-
-
-
-
