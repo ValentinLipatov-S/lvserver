@@ -15,6 +15,7 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log('Client connected');
+  io.json.send({'event': 'userSplit', 'name': 'ID', 'time': 'time'});
   socket.on('disconnect', () => console.log('Client disconnected'));
 });
 
