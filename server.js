@@ -17,8 +17,7 @@ const io = socketIO(server);
 
 io.on('connection', function (socket) {
 
-  var ID = socket.id;
-  clients[ID] = socket;
+  clients[socket.id.toString()] = socket;
 	
   console.log('Client connected');
   console.log(clients);
