@@ -7,8 +7,7 @@ const path = require('path');
 const PORT = process.env.PORT || 3000;
 const INDEX = path.join(__dirname, 'index.html');
 
-var clients = [];
-
+var clients = {};
 
 const server = express()
   .use((req, res) => res.sendFile(INDEX) )
@@ -17,16 +16,14 @@ const server = express()
 const io = socketIO(server);
 
 io.on('connection', function (socket) {
-  console.log('Client connected');
-  
-  //clients.push(socket);
-  
+
+  var ID = (socket.id).toString();
+  clients.ID = socket;
+	
+  console.log('Client connected ' + clients);
+	       
   socket.on('disconnect', function () { 
-    //var index = clients.indexOf(socket);
-		//if(index != -1) {
-			//clients.splice(index);
-		//}
-		//socket.onDisconnect();
+    delete socket[ID];
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
