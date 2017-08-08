@@ -17,14 +17,13 @@ const io = socketIO(server);
 
 io.on('connection', function (socket) {
 
-  //var ID = (socket.id).toString();
-  //clients.ID = socket;
+  var ID = socket.id;
+  clients.ID = socket;
 	
   console.log('Client connected');
-	console.log(socket.id);
-	       
+  console.log(clients);
   socket.on('disconnect', function () { 
-    //delete socket[ID];
+    if(socket[ID] != undefined) delete socket[ID];
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
