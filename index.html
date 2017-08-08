@@ -20,7 +20,7 @@
       socket.on('message', function(msg) {
         var message = document.createElement("div");
 
-        message.innerHTML = msg[comand] + " " + msg[user_id] + " " + msg[text];
+        message.innerHTML = msg['comand'] + " " + msg['user_id'] + " " + msg['text'];
         
         element.appendChild(message);
       });
