@@ -16,17 +16,17 @@ const server = express()
 
 const io = socketIO(server);
 
-io.on('connection', (socket) => {
+io.on('connection', function (socket) {
   console.log('Client connected');
   
-  clients.push(socket);
+  //clients.push(socket);
   
   socket.on('disconnect', function () { 
-    var index = clients.indexOf(socket);
-		if(index != -1) {
-			clients.splice(index);
-		}
-		socket.onDisconnect();
+    //var index = clients.indexOf(socket);
+		//if(index != -1) {
+			//clients.splice(index);
+		//}
+		//socket.onDisconnect();
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
