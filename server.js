@@ -19,15 +19,14 @@ const io = socketIO(server);
 io.on('connection', (socket) => {
   console.log('Client connected');
   
-  var client = new Client(socket);
-  clients.push(client);
+  clients.push(socket);
   
   socket.on('disconnect', function () { 
-    var index = clients.indexOf(client);
+    var index = clients.indexOf(socket);
 		if(index != -1) {
 			clients.splice(index);
 		}
-		client.onDisconnect();
+		socket.onDisconnect();
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
