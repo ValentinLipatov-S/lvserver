@@ -2,7 +2,13 @@
   <body>
     <div id='message-box'></div>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
+    <input id = "text" type = "text" placeholder = "message" />
+    <input id = "button" type = "submit" />
+    
+    
+    
+  <script>
+    
       var socket = io();
       var element = document.getElementById('message-box');
 
@@ -16,12 +22,10 @@
         message.innerHTML = msg;
         element.appendChild(message);
       });
-      document.getElementById('button').onclick = function (e) {
+      document.getElementById('button').addEventListener("click", function (e) {
         socket.send(document.getElementById('text').value);
-      };
+      }, false);
      
     </script>
-    <input id = "text" type = "text" placeholder = "message" />
-    <input id = "button" type = "submit" />
   </body>
 </html>
