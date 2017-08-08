@@ -17,10 +17,10 @@ const io = socketIO(server);
 
 io.on('connection', function (socket) {
 
-  var ID = (socket.id).toString();
-  clients.ID = socket;
+  //var ID = (socket.id).toString();
+  //clients.ID = socket;
 	
-  console.log('Client connected ' + ID);
+  console.log('Client connected ' + socket);
 	       
   socket.on('disconnect', function () { 
     delete socket[ID];
