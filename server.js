@@ -26,6 +26,7 @@ io.on('connection', function (socket) {
   /*MESSAGE*/
   socket.on('message', function (msg) { 
     for(var key in clients) clients[key].send(msg); 
-    //console.log('Client send messgae ' + msg); });
+    //console.log('Client send messgae ' + msg); 
+  });
 });
 //io.emit('time', new Date().toTimeString());
