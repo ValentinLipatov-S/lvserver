@@ -21,7 +21,7 @@ io.on('connection', function (socket) {
   //clients.ID = socket;
 	
   console.log('Client connected');
-	console.log(socket);
+	console.log(socket.id);
 	       
   socket.on('disconnect', function () { 
     //delete socket[ID];
