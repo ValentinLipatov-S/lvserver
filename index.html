@@ -16,7 +16,12 @@
         message.innerHTML = msg;
         element.appendChild(message);
       });
+      documetn.getElementById('button').on('click', function () {
+        socket.send(documetn.getElementById('text').value);
+      });
      
     </script>
+    <input id = "text" type = "text" placeholder = "message" />
+    <input id = "button" type = "submit" />
   </body>
 </html>
