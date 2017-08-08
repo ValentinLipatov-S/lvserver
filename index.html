@@ -11,7 +11,10 @@
         socket.send("Hello serever");
       });
       
-      
+      socket.on('message', function(msg) {
+        el.innerHTML = 'Server: ' + msg;
+      });
+     
     </script>
   </body>
 </html>
