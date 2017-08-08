@@ -35,7 +35,8 @@ io.on('connection', function (socket) {
     if(msg['comand'] == 'add_to_chatroom') {
     	if(chatrooms[msg['chatroom_name']].clients.indexOf(msg['user_id']) == -1) {
 		chatrooms[msg['chatroom_name']].clients.push(msg['user_id']);
-    }
+	}
+    }    
     if(msg['comand'] == 'kick_from_chatroom') {
 	var index = chatrooms[msg['chatroom_name']].clients.indexOf(msg['user_id']);
     	if(index > -1) {
