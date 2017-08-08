@@ -8,7 +8,10 @@
 
       socket.on('time', function(timeString) {
         el.innerHTML = 'Server time: ' + timeString;
+        socket.send("Hello serever");
       });
+      
+      
     </script>
   </body>
 </html>
