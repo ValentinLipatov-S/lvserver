@@ -1,18 +1,20 @@
 <html>
   <body>
-    <p id='server-time'></p>
+    <div id='message-box'></div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
-      var el = document.getElementById('server-time');
+      var element = document.getElementById('message-box');
 
-      socket.on('time', function(timeString) {
-        el.innerHTML = 'Server time: ' + timeString;
-        socket.send("Hello serever");
-      });
+      //socket.on('time', function(timeString) {
+        //el.innerHTML = 'Server time: ' + timeString;
+        //socket.send("Hello serever");
+      //});
       
       socket.on('message', function(msg) {
-        el.innerHTML = 'Server: ' + msg;
+        var message = document.createElement("div");
+        message.innerHTML = msg;
+        element.appendChild(message);
       });
      
     </script>
