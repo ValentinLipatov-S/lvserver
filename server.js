@@ -62,7 +62,7 @@ io.on('connection', function (socket) {
 	   }
    }	    
 	  
-    for(var key in clients) clients[key].json.send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg}); 
+    for(var key in clients) clients[key].json.send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg['comand']}); 
     //console.log('Client send messgae ' + msg); 
   });
 });
