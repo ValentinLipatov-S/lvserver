@@ -16,8 +16,9 @@
         message.innerHTML = msg;
         element.appendChild(message);
       });
-      document.getElementById('button').addEventListener("click", function () {
-        socket.send(document.getElementById('text').value);
+      document.getElementById('button').addEventListener("click", function (e) {
+        //socket.send(document.getElementById('text').value);
+        console.log(1);
       });
      
     </script>
