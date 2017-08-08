@@ -25,7 +25,7 @@ io.on('connection', function (socket) {
     console.log('Client disconnected'); });
   /*MESSAGE*/
   socket.on('message', function (msg) { 
-    for(var key in clients) clients[key].json.send({'comand': 'message', 'user_id': key, 'text': msg}); 
+    for(var key in clients) clients[key].json.send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg}); 
     //console.log('Client send messgae ' + msg); 
   });
 });
