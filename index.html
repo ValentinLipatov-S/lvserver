@@ -19,9 +19,12 @@
       
       socket.on('message', function(msg) {
         var message = document.createElement("div");
-        message.innerHTML = msg;
+
+        message.innerHTML = msg[comand] + " " + msg[user_id] + " " + msg[text];
+        
         element.appendChild(message);
       });
+    
       document.getElementById('button').addEventListener("click", function (e) {
         socket.send(document.getElementById('text').value);
       }, false);
