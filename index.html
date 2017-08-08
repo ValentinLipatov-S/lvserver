@@ -2,10 +2,13 @@
   <body>
     <div id='message-box'></div>
     <script src="/socket.io/socket.io.js"></script>
-    <input id = "text" type = "text" placeholder = "message" />
+    
+    <input id = "comand" type = "text" placeholder = "comand" />
+    <input id = "chatroom_name" type = "text" placeholder = "chatroom_name" />
+    <input id = "message_text" type = "text" placeholder = "message_text" />
+    <input id = "user_id" type = "text" placeholder = "user_id" />
+    
     <input id = "button" type = "submit" />
-    
-    
     
   <script>
     
@@ -26,7 +29,12 @@
       });
     
       document.getElementById('button').addEventListener("click", function (e) {
-        socket.send(document.getElementById('text').value);
+        socket.send({
+          "comand": document.getElementById('comand').value,
+          "chatroom_name": document.getElementById('chatroom_name').value,
+          "message_text": document.getElementById('message_text').value,
+          "user_id": document.getElementById('user_id').value
+        });
       }, false);
      
     </script>
