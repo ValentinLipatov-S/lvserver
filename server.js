@@ -22,7 +22,7 @@ io.on('connection', function (socket) {
   console.log('Client connected');
   console.log(clients);
   socket.on('disconnect', function () { 
-    if(socket[ID] != undefined) delete socket[ID];
+    if(clients[socket.id.toString()] != undefined) delete clients[socket.id.toString()];
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
