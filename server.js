@@ -55,7 +55,7 @@ io.on('connection', function (socket) {
 	   if(current_chatroom != undefined) {
    		for(var i = 0; i < current_chatroom.clients.length; i++)
 		{
-			clients[current_chatroom.clients[i]].send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg});
+			clients[current_chatroom.clients[i]].send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg['message_text']});
 		}
 	   }
    }	    
