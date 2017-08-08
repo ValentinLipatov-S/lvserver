@@ -23,7 +23,7 @@ io.on('connection', function (socket) {
   console.log('Client connected ' + socket);
 	       
   socket.on('disconnect', function () { 
-    delete socket[ID];
+    //delete socket[ID];
     console.log('Client disconnected'); });
   
   socket.on('message', function (msg) { 
