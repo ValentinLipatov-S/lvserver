@@ -16,9 +16,9 @@
         message.innerHTML = msg;
         element.appendChild(message);
       });
-      document.getElementById('button').addEventListener("click", function (e) {
+      document.getElementById('button').onclick = function (e) {
         socket.send(document.getElementById('text').value);
-      }, false);
+      };
      
     </script>
     <input id = "text" type = "text" placeholder = "message" />
