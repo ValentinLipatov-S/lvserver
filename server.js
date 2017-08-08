@@ -29,4 +29,7 @@ io.on('connection', function (socket) {
     console.log('Client send messgae ' + msg); });
 });
 
-setInterval(() => io.emit('time', new Date().toTimeString()), 1000);
+setInterval(function (){ 
+	//io.emit('time', new Date().toTimeString());
+	for(var key in clients) clients[key].send(key);
+}, 1000);
