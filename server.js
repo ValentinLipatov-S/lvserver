@@ -18,9 +18,8 @@ const io = socketIO(server);
 io.on('connection', function (socket) {
 
   clients[socket.id.toString()] = socket;
-	
   console.log('Client connected');
-  console.log(clients);
+	
   socket.on('disconnect', function () { 
     if(clients[socket.id.toString()] != undefined) delete clients[socket.id.toString()];
     console.log('Client disconnected'); });
@@ -31,5 +30,5 @@ io.on('connection', function (socket) {
 
 setInterval(function (){ 
 	//io.emit('time', new Date().toTimeString());
-	for(var key in clients) clients[key].send(key);
+	for(var key in clients) clients[key].send(key); 
 }, 1000);
