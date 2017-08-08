@@ -48,6 +48,8 @@ io.on('connection', function (socket) {
 		    var this_chatroom = chatroom;
 		    this_chatroom.clients.push(socket.id.toString());
 		    chatrooms[msg['chatroom_name']] = this_chatroom;
+		    
+		    console.log('create_chatroom');
 	    }
     }
    if(msg['comand'] == 'send_to_chatroom') {
@@ -59,6 +61,8 @@ io.on('connection', function (socket) {
 		}
 	   }
    }	    
+	  
+   console.log(msg);
     //for(var key in clients) clients[key].json.send({'comand': 'message', 'user_id': socket.id.toString(), 'text': msg}); 
     //console.log('Client send messgae ' + msg); 
   });
