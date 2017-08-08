@@ -23,12 +23,9 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () { 
     if(clients[socket.id.toString()] != undefined) delete clients[socket.id.toString()];
     console.log('Client disconnected'); });
-  
+  /*MESSAGE*/
   socket.on('message', function (msg) { 
-    console.log('Client send messgae ' + msg); });
+    for(var key in clients) clients[key].send(msg); 
+    //console.log('Client send messgae ' + msg); });
 });
-
-setInterval(function (){ 
-	//io.emit('time', new Date().toTimeString());
-	for(var key in clients) clients[key].send(key); 
-}, 1000);
+//io.emit('time', new Date().toTimeString());
