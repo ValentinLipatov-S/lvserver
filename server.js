@@ -20,7 +20,7 @@ io.on('connection', function (socket) {
   //var ID = (socket.id).toString();
   //clients.ID = socket;
 	
-  console.log('Client connected ' + socket);
+  console.log('Client connected');
 	       
   socket.on('disconnect', function () { 
     //delete socket[ID];
